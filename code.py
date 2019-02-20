@@ -180,8 +180,49 @@ def fage(x):
 train['LoanAmount'].fillna(train[train['LoanAmount'].isnull()].apply(fage, axis = 1), inplace = True)
 
 
-# In[ ]:
+# In[37]:
 
 
 '''Treat extreme values in LoanAmount and ApplicantIncome'''
+# extreme values in LoanAmount can be possible
+# so we will log transform to nullify the effect
+train['LoanAmount_log'] = np.log(train['LoanAmount'])
+train['LoanAmount_log'].hist(bins = 20)
+
+
+# In[12]:
+
+
+temp5 = pd.crosstab(index = [train['Married'], train['Gender']], columns = train['Dependents'])
+print(temp5)
+
+
+# In[16]:
+
+
+train.loc[(train['Dependents'].isnull()) & (train['Married'] == 'Yes') & (train['Gender'] == 'Male')]
+
+
+# In[18]:
+
+
+type(train['Dependents'][0])
+
+
+# In[11]:
+
+
+train.crosstab(index = ['Married', 'Gender'], columns = 'Dependents')
+
+
+# In[8]:
+
+
+print(train['Married'].value_counts())
+
+
+# In[ ]:
+
+
+train.pivot(index = 'Credit_History', columns = )
 
